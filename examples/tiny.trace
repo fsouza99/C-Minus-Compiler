@@ -1,0 +1,58 @@
+Line 21: <VOID>
+Line 21: <ID, "main">
+Line 21: <LPAREN>
+Line 21: <RPAREN>
+Line 21: <LCBRACES>
+Line 22: <INT>
+Line 22: <ID, "x">
+Line 22: <SEMI>
+Line 22: <INT>
+Line 22: <ID, "fact">
+Line 22: <SEMI>
+Line 23: <ID, "x">
+Line 23: <ASSIGN>
+Line 23: <ID, "input">
+Line 23: <LPAREN>
+Line 23: <RPAREN>
+Line 23: <SEMI>
+Line 24: <IF>
+Line 24: <LPAREN>
+Line 24: <NUM, "0">
+Line 24: <LT>
+Line 24: <ID, "x">
+Line 24: <RPAREN>
+Line 24: <LCBRACES>
+Line 25: <ID, "fact">
+Line 25: <ASSIGN>
+Line 25: <NUM, "1">
+Line 25: <SEMI>
+Line 26: <WHILE>
+Line 26: <LPAREN>
+Line 26: <ID, "x">
+Line 26: <ASSIGN>
+Line 26: <NUM, "0">
+Line 26: <RPAREN>
+Line 26: <LCBRACES>
+Line 27: <ID, "fact">
+Line 27: <ASSIGN>
+Line 27: <ID, "fact">
+Line 27: <TIMES>
+Line 27: <ID, "x">
+Line 27: <SEMI>
+Line 28: <ID, "x">
+Line 28: <ASSIGN>
+Line 28: <ID, "x">
+Line 28: <MINUS>
+Line 28: <NUM, "1">
+Line 28: <SEMI>
+Line 29: <RCBRACES>
+Line 30: <ID, "print">
+Line 30: <LPAREN>
+Line 30: <ID, "fact">
+Line 30: <RPAREN>
+Line 30: <SEMI>
+Line 31: <RCBRACES>
+Line 32: <RETURN>
+Line 32: <SEMI>
+Line 33: <RCBRACES>
+Line 64: <ENDOFFILE>
