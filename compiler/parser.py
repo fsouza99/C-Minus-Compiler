@@ -3,45 +3,81 @@ from .util import *
 from .scanner import *
 
 IDGenerator = IDGenerator()
+GLOBAL_SCOPE_KEY = 'GLOBAL'
+BUILTIN_FUNCTIONS = ['input', 'output']
+
 
 class TreeNode():
 
-    def __init__(self, child=None, kind : NodeKind = None, lineno : int = None, attribute=None):
+    def __init__(self, name : str = None, kind : NodeKind = NodeKind.UNDEFINED, lineno : int = None, attribute=None):
         self.children = []
-        if child is not None:
-            self.children.append(child)
-        self.kind = NodeKind.UNDEFINED if kind is None else kind
+        self.sibling = None
+        self.kind = kind
         self.number = next(IDGenerator)
         self.attribute = attribute
         self.lineno = lineno
+        self.name = name
+
+    def toString(self, spaces):
+        text = ' ' * spaces + f"""<ID: {self.number}, kind: {self.kind}"""
+        if self.attribute is not None:
+            text += f""", att: {self.attribute}"""
+        if self.name:
+            text += f""", name: {self.name}"""
+        return text + f""", line: {self.lineno}>"""
     
     def addChild(self, child):
         self.children.append(child)
         return None
+
+
+class SyntaxError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+class TokenError(Exception):
+    def __init__(self, message):
+        self.message = message
 
 class Parser():
 
     def __init__(self, scanner: Scanner):
         self.token = self.root = None
         self.scanner = scanner
+        self.symbols = {GLOBAL_SCOPE_KEY:BUILTIN_FUNCTIONS}
+        self.tokenBackup = (None, None)
+        self.currentScope = GLOBAL_SCOPE_KEY
+        self.nodeCount = 0
+
+    def getNewNode(self, name : str = None, kind : NodeKind = None, attribute=None):
+        node = TreeNode(name=self.scanner.tokenString, kind=kind, lineno=self.scanner.line_index, attribute=attribute)
+        self.nodeCount += 1
+        return node
 
     def match(self, token):
         if self.token == token:
+            self.tokenStringBackup = self.scanner.tokenString, self.scanner.line_index
             self.token = self.scanner.get_token()
+            if self.token == TokenType.ERROR:
+                raise TokenError(f"""ERROR: Token Error.\nSymbol {self.scanner.tokenString} at line {self.scanner.line_index} does not represent anything.""")
             return True
-        raise Exception(f"""ERROR: Syntax Error. Expected token: {self.token}. Received token: {token}. Line: {self.scanner.line_index}""")
+        raise SyntaxError(f"""ERROR: Syntax Error.\nExpected token {token} at line {self.scanner.line_index}, but got {self.token}.""")
 
     def reference_exp(self):
-        t = TreeNode(lineno=self.scanner.line_index)
+        t = self.getNewNode()
         self.match(TokenType.ID)
+        if not self.check_symbol(self.tokenStringBackup[0]):
+            raise SyntaxError(f"""ERROR: Reference Error.\nSymbol "{self.tokenStringBackup[0]}" at line {self.tokenStringBackup[1]} has not been declared.""")
         if self.token == TokenType.LPAREN:
             self.match(TokenType.LPAREN)
             if self.token != TokenType.RPAREN:
                 t.addChild(self.arg_list())
             self.match(TokenType.RPAREN)
-            t.kind = NodeKind.CALL_EXP
+            t.kind = NodeKind.CALL
+            t.attribute = TokenType.ID.name
             return t
-        t.kind = NodeKind.VAR_REF_EXP
+        t.kind = NodeKind.VAR_REF
+        t.attribute = TokenType.ID.name
         if self.token == TokenType.LBRACKETS:
             self.match(TokenType.LBRACKETS)
             t.addChild(self.expression())
@@ -51,80 +87,107 @@ class Parser():
     def expression_stmt(self):
         if self.token == TokenType.SEMI:
             self.match(TokenType.SEMI)
-            t = TreeNode(lineno=self.scanner.line_index)
-            t.kind = NodeKind.SEMI_STMT
-            return t
+            return None
         t = self.expression()
         self.match(TokenType.SEMI)
         return t
 
+    def match_relop(self):
+        if self.token == TokenType.LTEQ:
+            self.match(TokenType.LTEQ)
+            return TokenType.LTEQ
+        elif self.token == TokenType.LT:
+            self.match(TokenType.LT)
+            return TokenType.LT
+        elif self.token == TokenType.GT:
+            self.match(TokenType.GT)
+            return TokenType.GT
+        elif self.token == TokenType.GTEQ:
+            self.match(TokenType.GTEQ)
+            return TokenType.GTEQ
+        elif self.token == TokenType.COMP:
+            self.match(TokenType.COMP)
+            return TokenType.COMP
+        elif self.token == TokenType.DIFF:
+            self.match(TokenType.DIFF)
+            return TokenType.DIFF
+        return None
+
+    def match_mulop(self):
+        if self.token == TokenType.TIMES:
+            self.match(TokenType.TIMES)
+            return TokenType.TIMES
+        elif self.token == TokenType.OVER:
+            self.match(TokenType.OVER)
+            return TokenType.OVER
+        return None
+
+    def match_addop(self):
+        if self.token == TokenType.PLUS:
+            self.match(TokenType.PLUS)
+            return TokenType.PLUS
+        elif self.token == TokenType.MINUS:
+            self.match(TokenType.MINUS)
+            return TokenType.MINUS
+        return None
+
     def expression(self):
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.EXP
         if self.token == TokenType.ID:
-            child = self.reference_exp()
-            if child.kind == NodeKind.VAR_REF_EXP:
+            t = self.reference_exp()
+            if not self.is_token_delimiter() and t.kind == NodeKind.VAR_REF:
                 if self.token == TokenType.ASSIGN:
                     self.match(TokenType.ASSIGN)
-                    t.kind = NodeKind.VAR_ASSIGN
-                    t.addChild(child)
+                    t.kind = NodeKind.ASSIGN
                     t.addChild(self.expression())
                     return t
-                t.addChild(self.simple_expression(child))
-                return t
-            t.addChild(child)
+                p = self.getNewNode()
+                p.addChild(t)
+                while self.is_token_relop():
+                    p.attribute = self.match_relop()
+                    p.addChild(self.additive_expression())
+                    p.kind = NodeKind.RELOP
+                while self.is_token_addop():
+                    p.attribute = self.match_addop()
+                    p.addChild(self.term())
+                    p.kind = NodeKind.ADDOP
+                while self.is_token_mulop():
+                    p.attribute = self.match_mulop()
+                    p.addChild(self.factor())
+                    p.kind = NodeKind.MULOP
+                t = p
             return t
-        t.addChild(self.simple_expression())
-        return t
+        return self.simple_expression()
 
-    def simple_expression(self, initialTerm=None):
+    def simple_expression(self):
         # simple-expression → additive-expression {relop additive-expression}
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.addChild(self.additive_expression(initialTerm))
-        t.kind = NodeKind.SIMPLE_EXP
+        t = self.additive_expression()
         while self.is_token_relop():
-            if self.token == TokenType.LTEQ:
-                self.match(TokenType.LTEQ)
-            elif self.token == TokenType.LT:
-                self.match(TokenType.LT)
-            elif self.token == TokenType.GT:
-                self.match(TokenType.GT)
-            elif self.token == TokenType.GTEQ:
-                self.match(TokenType.GTEQ)
-            elif self.token == TokenType.COMP:
-                self.match(TokenType.COMP)
-            elif self.token == TokenType.DIFF:
-                self.match(TokenType.DIFF)
-            t.addChild(self.additive_expression())
+            p = self.getNewNode(kind=NodeKind.RELOP)
+            p.addChild(t)
+            p.attribute = self.match_relop()
+            p.addChild(self.additive_expression())
+            t = p
         return t
 
-    def additive_expression(self, initialTerm=None):
+    def additive_expression(self):
         # additive-expression → term {mulop term}
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.ADDITIVE_EXP
-        t.addChild(self.term(initialTerm))
+        t = self.term()
         while self.is_token_addop():
-            if self.token == TokenType.PLUS:
-                self.match(TokenType.PLUS)
-            elif self.token == TokenType.MINUS:
-                self.match(TokenType.MINUS)
-            t.addChild(self.term())
+            p = self.getNewNode(kind=NodeKind.ADDOP)
+            p.addChild(t)
+            p.attribute = self.match_addop()
+            p.addChild(self.term())
+            t = p
         return t
 
-    def term(self, initialTerm=None):
+    def term(self):
         # term → factor {mulop factor}
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.TERM
-        if initialTerm is None:
-            t.addChild(self.factor())
-        else:
-            t.addChild(initialTerm)
-            initialTerm.kind = NodeKind.FACTOR
+        t = self.factor()
         while self.is_token_mulop():
-            if self.token == TokenType.TIMES:
-                self.match(TokenType.TIMES)
-            elif self.token == TokenType.OVER:
-                self.match(TokenType.OVER)
+            p = self.getNewNode(kind=NodeKind.MULOP)
+            p.addChild(t)
+            p.attribute = self.match_mulop()
+            t = p
             t.addChild(self.factor())
         return t
 
@@ -142,20 +205,30 @@ class Parser():
     def is_token_mulop(self):
         return self.token == TokenType.TIMES or self.token == TokenType.OVER
 
+    def is_token_delimiter(self):
+        return  self.token == TokenType.COMMA or \
+                self.token == TokenType.SEMI or \
+                self.token == TokenType.RBRACKETS or \
+                self.token == TokenType.RPAREN
+
     def factor(self):
         # factor → ( expression ) | var | call | NUM
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.FACTOR
         if self.token == TokenType.LPAREN:
             self.match(TokenType.LPAREN)
-            t.addChild(self.expression())
+            t = self.expression()
             self.match(TokenType.RPAREN)
         elif self.token == TokenType.NUM:
             self.match(TokenType.NUM)
-            self.attribute = TokenType.NUM
-        else:
+            t = self.getNewNode(kind=NodeKind.NUM)
+            t.attribute = self.tokenStringBackup[0]
+            t.name = TokenType.NUM.name
+        elif self.token == TokenType.ID:
             self.match(TokenType.ID)
-            self.attribute = TokenType.ID
+            t = self.getNewNode(kind=NodeKind.VAR_REF)
+            t.attribute = TokenType.ID.name
+            t.name = self.tokenStringBackup[0]
+            if not self.check_symbol(self.tokenStringBackup[0]):
+                raise SyntaxError(f"""ERROR: Reference Error.\nSymbol "{self.tokenStringBackup[0]}" at line {self.tokenStringBackup[1]} has not been declared.""")
             if self.token == TokenType.LBRACKETS:
                 self.match(TokenType.LBRACKETS)
                 t.addChild(self.expression())
@@ -165,12 +238,13 @@ class Parser():
                 if self.token != TokenType.RPAREN:
                     t.addChild(self.arg_list())
                 self.match(TokenType.RPAREN)
+        else:
+            raise SyntaxError(f"""ERROR: Syntax Error at line {self.scanner.line_index}.""")
         return t
 
     def arg_list(self):
-        t = TreeNode(lineno=self.scanner.line_index)
+        t = self.getNewNode(kind=NodeKind.ARG_LIST)
         t.addChild(self.expression())
-        t.kind = NodeKind.ARG_LIST
         while self.token == TokenType.COMMA:
             self.match(TokenType.COMMA)
             t.addChild(self.expression())
@@ -178,8 +252,7 @@ class Parser():
 
     def selection_stmt(self):
         # selection-stmt → if ( expression ) statement [else statement]
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.SELECTION_STMT
+        t = self.getNewNode(kind=NodeKind.SELECTION_STMT)
         self.match(TokenType.IF)
         self.match(TokenType.LPAREN)
         t.addChild(self.expression())
@@ -192,8 +265,7 @@ class Parser():
 
     def iteration_stmt(self):
         # while ( expression ) statement
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.ITERATION_STMT
+        t = self.getNewNode(kind=NodeKind.ITERATION_STMT)
         self.match(TokenType.WHILE)
         self.match(TokenType.LPAREN)
         t.addChild(self.expression())
@@ -202,9 +274,8 @@ class Parser():
         return t
 
     def return_stmt(self):
+        t = self.getNewNode(kind=NodeKind.RETURN_STMT)
         self.match(TokenType.RETURN)
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.RETURN_STMT
         if self.token == TokenType.SEMI:
             self.match(TokenType.SEMI)
             return t
@@ -212,7 +283,7 @@ class Parser():
         self.match(TokenType.SEMI)
         return t
 
-    def type_specifier(self):
+    def match_type(self):
         if self.token == TokenType.INT:
             self.match(TokenType.INT)
             return TokenType.INT
@@ -223,9 +294,8 @@ class Parser():
 
     def param_list(self):
         # param-list → param {, param}
-        t = TreeNode(lineno=self.scanner.line_index)
+        t = self.getNewNode(kind=NodeKind.PARAM_LIST)
         t.addChild(self.param())
-        t.kind = NodeKind.PARAM_LIST
         while self.token == TokenType.COMMA:
             self.match(TokenType.COMMA)
             t.addChild(self.param())
@@ -233,40 +303,41 @@ class Parser():
 
     def param(self):
         #  param → type-specifier ID | type-specifier ID [ ]
-        t = TreeNode(lineno=self.scanner.line_index)
-        type_specifier = self.type_specifier()
-        t.kind = NodeKind.INT_PARAM if type_specifier == TokenType.INT else NodeKind.VOID_PARAM
-        if type_specifier == TokenType.VOID:
+        t = self.getNewNode(kind=NodeKind.PARAM)
+        t.attribute = self.match_type()
+        if t.attribute == TokenType.VOID:
             return t
         self.match(TokenType.ID)
+        t.name = self.tokenStringBackup[0]
+        self.declare_symbol()
         if self.token == TokenType.LBRACKETS:
             self.match(TokenType.LBRACKETS)
             self.match(TokenType.RBRACKETS)
         return t
 
     def local_declarations(self):
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.LOCAL_DECLARATIONS
-        while self.token == TokenType.INT or self.token == TokenType.VOID:
-            v = TreeNode(lineno=self.scanner.line_index)
-            self.type_specifier()
-            v.kind = NodeKind.VAR_DECLARATION
+        if self.token == TokenType.INT or self.token == TokenType.VOID:
+            t = self.getNewNode(kind=NodeKind.VAR_DECLARATION)
+            t.attribute = self.match_type()
             self.match(TokenType.ID)
+            t.name = self.tokenStringBackup[0]
+            self.declare_symbol()
             if self.token == TokenType.LBRACKETS:
                 self.match(TokenType.LBRACKETS)
                 self.match(TokenType.RBRACKETS)
             self.match(TokenType.SEMI)
-            t.addChild(v)
-        return t
+            t.sibling = self.local_declarations()
+            return t
+        return None
 
     def compound_stmt(self):
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.COMPOUND_STMT
+        t = self.getNewNode(kind=NodeKind.COMPOUND_STMT)
         self.match(TokenType.LCBRACES)
         if self.token != TokenType.RCBRACES:
             if self.token == TokenType.INT or self.token == TokenType.VOID:
                 t.addChild(self.local_declarations())
-            t.addChild(self.stmt_list())
+            if self.token != TokenType.RCBRACES:
+                t.addChild(self.stmt_list())
         self.match(TokenType.RCBRACES)
         return t
 
@@ -283,27 +354,36 @@ class Parser():
         return self.expression_stmt()
 
     def stmt_list(self):
-        t = TreeNode(self.stmt(), lineno=self.scanner.line_index)
-        t.kind = NodeKind.STMT_LIST
-        while self.token != TokenType.RCBRACES:
-            t.addChild(self.stmt())
-        return t
+        if self.token != TokenType.RCBRACES:
+            t = self.stmt()
+            t.sibling = self.stmt_list()
+            return t
+        return None
+
+    def declare_symbol(self, scope=GLOBAL_SCOPE_KEY):
+        stack = self.symbols.get(scope, [])
+        stack.append(self.tokenStringBackup[0])
+        self.symbols[scope] = stack
+        return
+
+    def check_symbol(self, symbol, scope=GLOBAL_SCOPE_KEY):
+        return symbol in self.symbols[scope]
 
     def declaration(self):
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.DECLARATION
-        type_specifier = self.type_specifier()
+        t = self.getNewNode()
+        t.attribute = self.match_type()
         self.match(TokenType.ID)
+        t.name = self.tokenStringBackup[0]
+        self.declare_symbol()
         if self.token == TokenType.SEMI:
             self.match(TokenType.SEMI)
             t.kind = NodeKind.VAR_DECLARATION
-            self.match(TokenType.SEMI)
         elif self.token == TokenType.LBRACKETS:
             self.match(TokenType.LBRACKETS)
             self.match(TokenType.NUM)
             self.match(TokenType.RBRACKETS)
-            t.kind = NodeKind.VAR_DECLARATION
             self.match(TokenType.SEMI)
+            t.kind = NodeKind.VAR_DECLARATION
         elif self.token == TokenType.LPAREN:
             self.match(TokenType.LPAREN)
             if self.token == TokenType.INT or self.token == TokenType.VOID:
@@ -314,17 +394,18 @@ class Parser():
         return t
 
     def declaration_list(self):
-        t = TreeNode(lineno=self.scanner.line_index)
-        t.kind = NodeKind.DECLARATION_LIST
+        t = self.declaration()
+        p = t
         while self.token != TokenType.ENDOFFILE:
-            t.addChild(self.declaration())
+            p.sibling = self.declaration()
+            p = p.sibling
         return t
 
     def parse(self):
         self.token = self.scanner.get_token()
         self.root = self.declaration_list()
         if self.token != TokenType.ENDOFFILE:
-            raise Exception("ERROR: Code ends before file.")
+            raise SyntaxError("ERROR: Code ends before file.")
         return self.root
 
 

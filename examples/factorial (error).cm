@@ -3,7 +3,7 @@ int factorial(int n) {
     buffer = aux = n;
     while (aux > 0) {
         aux = aux - 1;
-        buffer = buffer * (aux);
+        buffer = buffer * (aux; /* This is an error: A right parentheses is missing. */
     }
     return buffer;
 }

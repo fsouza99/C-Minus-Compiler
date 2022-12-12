@@ -37,7 +37,7 @@ void main(void)
     while (i < 10)
         { x[i] = input() ;
          i = i + 1; }
-    sort(x,0,10);
+    sorty(x,0,10); /* This is an error: Function sorty hasn's been declarated. */
     i = 0;
     while (i < 10)
     { output(x[i]);

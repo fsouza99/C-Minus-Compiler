@@ -1,0 +1,22 @@
+Line 1: <INT>
+Line 1: <ID, "parity">
+Line 1: <LPAREN>
+Line 1: <INT>
+Line 1: <ID, "n">
+Line 1: <RPAREN>
+Line 1: <LCBRACES>
+Line 2: <INT>
+Line 2: <ID, "aux">
+Line 2: <SEMI>
+Line 3: <ID, "aux">
+Line 3: <ASSIGN>
+Line 3: <ID, "n">
+Line 3: <OVER>
+Line 3: <NUM, "2">
+Line 3: <TIMES>
+Line 3: <NUM, "2">
+Line 3: <SEMI>
+Line 4: <IF>
+Line 4: <LPAREN>
+Line 4: <ID, "aux">
+Line 4: <ERROR, "! ">

@@ -36,11 +36,4 @@ Line 6: <ID, "buffer">
 Line 6: <TIMES>
 Line 6: <LPAREN>
 Line 6: <ID, "aux">
-Line 6: <RPAREN>
 Line 6: <SEMI>
-Line 7: <RCBRACES>
-Line 8: <RETURN>
-Line 8: <ID, "buffer">
-Line 8: <SEMI>
-Line 9: <RCBRACES>
-Line 9: <ENDOFFILE>

@@ -208,46 +208,5 @@ Line 39: <PLUS>
 Line 39: <NUM, "1">
 Line 39: <SEMI>
 Line 39: <RCBRACES>
-Line 40: <ID, "sort">
+Line 40: <ID, "sorty">
 Line 40: <LPAREN>
-Line 40: <ID, "x">
-Line 40: <COMMA>
-Line 40: <NUM, "0">
-Line 40: <COMMA>
-Line 40: <NUM, "10">
-Line 40: <RPAREN>
-Line 40: <SEMI>
-Line 41: <ID, "i">
-Line 41: <ASSIGN>
-Line 41: <NUM, "0">
-Line 41: <SEMI>
-Line 42: <WHILE>
-Line 42: <LPAREN>
-Line 42: <ID, "i">
-Line 42: <LT>
-Line 42: <NUM, "10">
-Line 42: <RPAREN>
-Line 43: <LCBRACES>
-Line 43: <ID, "output">
-Line 43: <LPAREN>
-Line 43: <ID, "x">
-Line 43: <LBRACKETS>
-Line 43: <ID, "i">
-Line 43: <RBRACKETS>
-Line 43: <RPAREN>
-Line 43: <SEMI>
-Line 44: <ID, "i">
-Line 44: <ASSIGN>
-Line 44: <ID, "i">
-Line 44: <PLUS>
-Line 44: <NUM, "1">
-Line 44: <SEMI>
-Line 44: <RCBRACES>
-Line 45: <ID, "k">
-Line 45: <ASSIGN>
-Line 45: <ID, "k">
-Line 45: <TIMES>
-Line 45: <NUM, "2">
-Line 45: <SEMI>
-Line 46: <RCBRACES>
-Line 47: <ENDOFFILE>

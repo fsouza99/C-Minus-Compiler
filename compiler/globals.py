@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class TokenType(Enum):
     # reserved words
 
@@ -43,32 +42,26 @@ class TokenType(Enum):
 
 class NodeKind(Enum):
 
-    ADDITIVE_EXP = 0
+    ADDOP = 0
     ARGS = 1
     ARG_LIST = 2
-    CALL_EXP = 3
-    COMPOUND_STMT = 4
-    DECLARATION = 5
-    DECLARATION_LIST = 6
-    EXP = 7
-    EXP_STMT = 8
-    FACTOR = 9
-    FUN_DECLARATION = 10
-    INT_PARAM = 11
-    ITERATION_STMT = 12
-    LOCAL_DECLARATIONS = 13
-    PARAM_LIST = 14
-    RETURN_STMT = 15
-    SELECTION_STMT = 16
-    SEMI_STMT = 17
-    SIMPLE_EXP = 18
-    STMT = 19
-    STMT_LIST = 20
-    TERM = 21
-    UNDEFINED = 22
-    VAR_ASSIGN = 23
-    VAR_DECLARATION = 24
-    VAR_REF_EXP = 25
-    VOID_PARAM = 26
+    ASSIGN = 3
+    CALL = 4
+    COMPOUND_STMT = 5
+    FUN_DECLARATION = 6
+    ITERATION_STMT = 7
+    MULOP = 8
+    NUM = 9
+    PARAM = 10
+    PARAM_LIST = 11
+    RELOP = 12
+    RETURN_STMT = 13
+    SELECTION_STMT = 14
+    UNDEFINED = 15
+    VAR_DECLARATION = 16
+    VAR_REF = 17
+
+
+
 
 

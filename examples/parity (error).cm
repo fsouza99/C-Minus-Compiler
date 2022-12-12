@@ -1,0 +1,7 @@
+int parity(int n) {
+	int aux;
+	aux = (n/2)*2;
+	if (aux ! n) { /* This is an error: The symbol ! means nothing. */
+		return 0;
+	} else return 1;
+}
