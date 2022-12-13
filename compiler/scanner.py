@@ -29,14 +29,14 @@ RESERVED_WORDS = {
 
 class Scanner():
 
-    def __init__(self, source_file, trace_file=None, verbose=None):
-        self.text = source_file.read()
+    def __init__(self, sourceFile, traceFile=None, verbose=None):
+        self.text = sourceFile.read()
         self.EOF = len(self.text)
-        self.trace_file = trace_file
-        self.line_index = 1
+        self.traceFile = traceFile
+        self.lineIndex = 1
         self.tokenString = None
         self._pointer = 0
-        self.verbose = trace_file is not None if verbose is None else verbose
+        self.verbose = traceFile is not None if verbose is None else verbose
         
     def check_reserve(self, tokenString: str):
         return RESERVED_WORDS.get(tokenString, TokenType.ID)
@@ -46,20 +46,21 @@ class Scanner():
             return None
         char = self.text[self._pointer]
         if char == '\n':
-            self.line_index += 1
+            self.lineIndex += 1
         self._pointer += 1
         return char
 
     def move_cursor_back(self):
         self._pointer -= 1
         if self.text[self._pointer] == '\n':
-            self.line_index -= 1
+            self.lineIndex -= 1
         return
 
     def save_token(self, currentToken: TokenType, tokenString: str = ''):
-        self.trace_file.write(format_token(currentToken, tokenString, self.line_index)+"\n")
+        self.traceFile.write(format_token(currentToken, tokenString, self.lineIndex)+"\n")
 
     def get_token(self):
+
         self.tokenString = ''
         state = State.START
         while state != State.DONE:
@@ -193,10 +194,10 @@ class Scanner():
                 self.tokenString += char
             if state == State.DONE and currentToken == TokenType.ID:
                 currentToken = self.check_reserve(self.tokenString)
-        if self.trace_file:
+        if self.traceFile:
             if self.tokenString in RESERVED_WORDS.keys():
                 self.tokenString = None
             self.save_token(currentToken, self.tokenString)
         if self.verbose:
-            show_token(currentToken, self.tokenString, self.line_index)
+            show_token(currentToken, self.tokenString, self.lineIndex)
         return currentToken

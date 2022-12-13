@@ -1,0 +1,24 @@
+<ID: 31, kind: NodeKind.FUN_DECLARATION, att: TokenType.INT, name: factorial, line: 1>
+    <ID: 32, kind: NodeKind.PARAM_LIST, line: 1>
+        <ID: 33, kind: NodeKind.PARAM, att: TokenType.INT, name: n, line: 1>
+    <ID: 34, kind: NodeKind.COMPOUND_STMT, line: 1>
+        <ID: 35, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: buffer, line: 2>
+        <ID: 36, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: aux, line: 2>
+        <ID: 37, kind: NodeKind.ASSIGN, att: ID, name: buffer, line: 3>
+            <ID: 38, kind: NodeKind.ASSIGN, att: ID, name: aux, line: 3>
+                <ID: 39, kind: NodeKind.VAR_REF, att: ID, name: n, line: 3>
+        <ID: 40, kind: NodeKind.ITERATION_STMT, line: 4>
+            <ID: 42, kind: NodeKind.RELOP, att: TokenType.GT, line: 4>
+                <ID: 41, kind: NodeKind.VAR_REF, att: ID, name: aux, line: 4>
+                <ID: 43, kind: NodeKind.NUM, att: 0, name: NUM, line: 4>
+            <ID: 44, kind: NodeKind.COMPOUND_STMT, line: 4>
+                <ID: 45, kind: NodeKind.ASSIGN, att: ID, name: aux, line: 5>
+                    <ID: 47, kind: NodeKind.ADDOP, att: TokenType.MINUS, line: 5>
+                        <ID: 46, kind: NodeKind.VAR_REF, att: ID, name: aux, line: 5>
+                        <ID: 48, kind: NodeKind.NUM, att: 1, name: NUM, line: 5>
+                <ID: 49, kind: NodeKind.ASSIGN, att: ID, name: buffer, line: 6>
+                    <ID: 51, kind: NodeKind.MULOP, att: TokenType.TIMES, line: 6>
+                        <ID: 50, kind: NodeKind.VAR_REF, att: ID, name: buffer, line: 6>
+                        <ID: 52, kind: NodeKind.VAR_REF, att: ID, name: aux, line: 6>
+        <ID: 53, kind: NodeKind.RETURN_STMT, line: 8>
+            <ID: 54, kind: NodeKind.VAR_REF, att: ID, name: buffer, line: 8>

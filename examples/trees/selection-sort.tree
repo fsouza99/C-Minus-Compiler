@@ -1,0 +1,125 @@
+<ID: 93, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: x, line: 3>
+<ID: 94, kind: NodeKind.FUN_DECLARATION, att: TokenType.INT, name: minloc, line: 5>
+    <ID: 95, kind: NodeKind.PARAM_LIST, line: 5>
+        <ID: 96, kind: NodeKind.PARAM, att: TokenType.INT, name: a, line: 5>
+        <ID: 97, kind: NodeKind.PARAM, att: TokenType.INT, name: low, line: 5>
+        <ID: 98, kind: NodeKind.PARAM, att: TokenType.INT, name: high, line: 5>
+    <ID: 99, kind: NodeKind.COMPOUND_STMT, line: 6>
+        <ID: 100, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: i, line: 6>
+        <ID: 101, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: x, line: 6>
+        <ID: 102, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: k, line: 6>
+        <ID: 103, kind: NodeKind.ASSIGN, att: ID, name: k, line: 7>
+            <ID: 104, kind: NodeKind.VAR_REF, att: ID, name: low, line: 7>
+        <ID: 105, kind: NodeKind.ASSIGN, att: ID, name: x, line: 8>
+            <ID: 106, kind: NodeKind.VAR_REF, att: ID, name: a, line: 8>
+                <ID: 107, kind: NodeKind.VAR_REF, att: ID, name: low, line: 8>
+        <ID: 108, kind: NodeKind.ASSIGN, att: ID, name: i, line: 9>
+            <ID: 110, kind: NodeKind.ADDOP, att: TokenType.PLUS, line: 9>
+                <ID: 109, kind: NodeKind.VAR_REF, att: ID, name: low, line: 9>
+                <ID: 111, kind: NodeKind.NUM, att: 1, name: NUM, line: 9>
+        <ID: 112, kind: NodeKind.ITERATION_STMT, line: 10>
+            <ID: 114, kind: NodeKind.RELOP, att: TokenType.LT, line: 10>
+                <ID: 113, kind: NodeKind.VAR_REF, att: ID, name: i, line: 10>
+                <ID: 115, kind: NodeKind.VAR_REF, att: ID, name: high, line: 10>
+            <ID: 116, kind: NodeKind.COMPOUND_STMT, line: 11>
+                <ID: 117, kind: NodeKind.SELECTION_STMT, line: 11>
+                    <ID: 120, kind: NodeKind.RELOP, att: TokenType.LT, line: 11>
+                        <ID: 118, kind: NodeKind.VAR_REF, att: ID, name: a, line: 11>
+                            <ID: 119, kind: NodeKind.VAR_REF, att: ID, name: i, line: 11>
+                        <ID: 121, kind: NodeKind.VAR_REF, att: ID, name: x, line: 11>
+                    <ID: 122, kind: NodeKind.COMPOUND_STMT, line: 12>
+                        <ID: 123, kind: NodeKind.ASSIGN, att: ID, name: x, line: 12>
+                            <ID: 124, kind: NodeKind.VAR_REF, att: ID, name: a, line: 12>
+                                <ID: 125, kind: NodeKind.VAR_REF, att: ID, name: i, line: 12>
+                        <ID: 126, kind: NodeKind.ASSIGN, att: ID, name: k, line: 13>
+                            <ID: 127, kind: NodeKind.NUM, att: 1, name: NUM, line: 13>
+                <ID: 128, kind: NodeKind.ASSIGN, att: ID, name: i, line: 14>
+                    <ID: 130, kind: NodeKind.ADDOP, att: TokenType.PLUS, line: 14>
+                        <ID: 129, kind: NodeKind.VAR_REF, att: ID, name: i, line: 14>
+                        <ID: 131, kind: NodeKind.NUM, att: 1, name: NUM, line: 14>
+        <ID: 132, kind: NodeKind.RETURN_STMT, line: 16>
+            <ID: 133, kind: NodeKind.VAR_REF, att: ID, name: k, line: 16>
+<ID: 134, kind: NodeKind.FUN_DECLARATION, att: TokenType.VOID, name: sort, line: 19>
+    <ID: 135, kind: NodeKind.PARAM_LIST, line: 19>
+        <ID: 136, kind: NodeKind.PARAM, att: TokenType.INT, name: a, line: 19>
+        <ID: 137, kind: NodeKind.PARAM, att: TokenType.INT, name: low, line: 19>
+        <ID: 138, kind: NodeKind.PARAM, att: TokenType.INT, name: high, line: 19>
+    <ID: 139, kind: NodeKind.COMPOUND_STMT, line: 20>
+        <ID: 140, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: i, line: 20>
+        <ID: 141, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: k, line: 20>
+        <ID: 142, kind: NodeKind.ASSIGN, att: ID, name: i, line: 21>
+            <ID: 143, kind: NodeKind.VAR_REF, att: ID, name: low, line: 21>
+        <ID: 144, kind: NodeKind.ITERATION_STMT, line: 22>
+            <ID: 146, kind: NodeKind.RELOP, att: TokenType.LT, line: 22>
+                <ID: 145, kind: NodeKind.VAR_REF, att: ID, name: i, line: 22>
+                <ID: 148, kind: NodeKind.ADDOP, att: TokenType.MINUS, line: 22>
+                    <ID: 147, kind: NodeKind.VAR_REF, att: ID, name: high, line: 22>
+                    <ID: 149, kind: NodeKind.NUM, att: 1, name: NUM, line: 22>
+            <ID: 150, kind: NodeKind.COMPOUND_STMT, line: 23>
+                <ID: 151, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: t, line: 23>
+                <ID: 152, kind: NodeKind.ASSIGN, att: ID, name: k, line: 24>
+                    <ID: 153, kind: NodeKind.CALL, att: ID, name: minloc, line: 24>
+                        <ID: 154, kind: NodeKind.ARG_LIST, name: a, line: 24>
+                            <ID: 155, kind: NodeKind.VAR_REF, att: ID, name: a, line: 24>
+                            <ID: 156, kind: NodeKind.VAR_REF, att: ID, name: i, line: 24>
+                            <ID: 157, kind: NodeKind.VAR_REF, att: ID, name: high, line: 24>
+                <ID: 158, kind: NodeKind.ASSIGN, att: ID, name: t, line: 25>
+                    <ID: 159, kind: NodeKind.VAR_REF, att: ID, name: a, line: 25>
+                        <ID: 160, kind: NodeKind.VAR_REF, att: ID, name: k, line: 25>
+                <ID: 161, kind: NodeKind.ASSIGN, att: ID, name: a, line: 26>
+                    <ID: 162, kind: NodeKind.VAR_REF, att: ID, name: k, line: 26>
+                    <ID: 163, kind: NodeKind.VAR_REF, att: ID, name: a, line: 26>
+                        <ID: 164, kind: NodeKind.VAR_REF, att: ID, name: i, line: 26>
+                <ID: 165, kind: NodeKind.ASSIGN, att: ID, name: a, line: 27>
+                    <ID: 166, kind: NodeKind.VAR_REF, att: ID, name: i, line: 27>
+                    <ID: 167, kind: NodeKind.VAR_REF, att: ID, name: t, line: 27>
+                <ID: 168, kind: NodeKind.ASSIGN, att: ID, name: i, line: 28>
+                    <ID: 170, kind: NodeKind.ADDOP, att: TokenType.PLUS, line: 28>
+                        <ID: 169, kind: NodeKind.VAR_REF, att: ID, name: i, line: 28>
+                        <ID: 171, kind: NodeKind.NUM, att: 1, name: NUM, line: 28>
+<ID: 172, kind: NodeKind.FUN_DECLARATION, att: TokenType.VOID, name: main, line: 32>
+    <ID: 173, kind: NodeKind.PARAM_LIST, line: 32>
+        <ID: 174, kind: NodeKind.PARAM, att: TokenType.VOID, line: 32>
+    <ID: 175, kind: NodeKind.COMPOUND_STMT, line: 33>
+        <ID: 176, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: i, line: 33>
+        <ID: 177, kind: NodeKind.VAR_DECLARATION, att: TokenType.INT, name: k, line: 34>
+        <ID: 178, kind: NodeKind.ASSIGN, att: ID, name: i, line: 35>
+            <ID: 179, kind: NodeKind.NUM, att: 0, name: NUM, line: 35>
+        <ID: 180, kind: NodeKind.ASSIGN, att: ID, name: k, line: 36>
+            <ID: 181, kind: NodeKind.NUM, att: 2, name: NUM, line: 36>
+        <ID: 182, kind: NodeKind.ITERATION_STMT, line: 37>
+            <ID: 184, kind: NodeKind.RELOP, att: TokenType.LT, line: 37>
+                <ID: 183, kind: NodeKind.VAR_REF, att: ID, name: i, line: 37>
+                <ID: 185, kind: NodeKind.NUM, att: 10, name: NUM, line: 37>
+            <ID: 186, kind: NodeKind.COMPOUND_STMT, line: 38>
+                <ID: 187, kind: NodeKind.ASSIGN, att: ID, name: x, line: 38>
+                    <ID: 188, kind: NodeKind.VAR_REF, att: ID, name: i, line: 38>
+                    <ID: 189, kind: NodeKind.CALL, att: ID, name: input, line: 38>
+                <ID: 190, kind: NodeKind.ASSIGN, att: ID, name: i, line: 39>
+                    <ID: 192, kind: NodeKind.ADDOP, att: TokenType.PLUS, line: 39>
+                        <ID: 191, kind: NodeKind.VAR_REF, att: ID, name: i, line: 39>
+                        <ID: 193, kind: NodeKind.NUM, att: 1, name: NUM, line: 39>
+        <ID: 194, kind: NodeKind.CALL, att: ID, name: sort, line: 40>
+            <ID: 195, kind: NodeKind.ARG_LIST, name: x, line: 40>
+                <ID: 196, kind: NodeKind.VAR_REF, att: ID, name: x, line: 40>
+                <ID: 197, kind: NodeKind.NUM, att: 0, name: NUM, line: 40>
+                <ID: 198, kind: NodeKind.NUM, att: 10, name: NUM, line: 40>
+        <ID: 199, kind: NodeKind.ASSIGN, att: ID, name: i, line: 41>
+            <ID: 200, kind: NodeKind.NUM, att: 0, name: NUM, line: 41>
+        <ID: 201, kind: NodeKind.ITERATION_STMT, line: 42>
+            <ID: 203, kind: NodeKind.RELOP, att: TokenType.LT, line: 42>
+                <ID: 202, kind: NodeKind.VAR_REF, att: ID, name: i, line: 42>
+                <ID: 204, kind: NodeKind.NUM, att: 10, name: NUM, line: 42>
+            <ID: 205, kind: NodeKind.COMPOUND_STMT, line: 43>
+                <ID: 206, kind: NodeKind.CALL, att: ID, name: output, line: 43>
+                    <ID: 207, kind: NodeKind.ARG_LIST, name: x, line: 43>
+                        <ID: 208, kind: NodeKind.VAR_REF, att: ID, name: x, line: 43>
+                            <ID: 209, kind: NodeKind.VAR_REF, att: ID, name: i, line: 43>
+                <ID: 210, kind: NodeKind.ASSIGN, att: ID, name: i, line: 44>
+                    <ID: 212, kind: NodeKind.ADDOP, att: TokenType.PLUS, line: 44>
+                        <ID: 211, kind: NodeKind.VAR_REF, att: ID, name: i, line: 44>
+                        <ID: 213, kind: NodeKind.NUM, att: 1, name: NUM, line: 44>
+        <ID: 214, kind: NodeKind.ASSIGN, att: ID, name: k, line: 45>
+            <ID: 216, kind: NodeKind.MULOP, att: TokenType.TIMES, line: 45>
+                <ID: 215, kind: NodeKind.VAR_REF, att: ID, name: k, line: 45>
+                <ID: 217, kind: NodeKind.NUM, att: 2, name: NUM, line: 45>

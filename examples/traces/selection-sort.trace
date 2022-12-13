@@ -1,0 +1,182 @@
+Line 3: <INT>
+Line 3: <ID, "x">
+Line 3: <LBRACKETS>
+Line 3: <NUM, "10">
+Line 3: <RBRACKETS>
+Line 3: <SEMI>
+Line 5: <INT>
+Line 5: <ID, "minloc">
+Line 5: <LPAREN>
+Line 5: <INT>
+Line 5: <ID, "a">
+Line 5: <LBRACKETS>
+Line 5: <RBRACKETS>
+Line 5: <COMMA>
+Line 5: <INT>
+Line 5: <ID, "low">
+Line 5: <COMMA>
+Line 5: <INT>
+Line 5: <ID, "high">
+Line 5: <RPAREN>
+Line 6: <LCBRACES>
+Line 6: <INT>
+Line 6: <ID, "i">
+Line 6: <SEMI>
+Line 6: <INT>
+Line 6: <ID, "x">
+Line 6: <SEMI>
+Line 6: <INT>
+Line 6: <ID, "k">
+Line 6: <SEMI>
+Line 7: <ID, "k">
+Line 7: <ASSIGN>
+Line 7: <ID, "low">
+Line 7: <SEMI>
+Line 8: <ID, "x">
+Line 8: <ASSIGN>
+Line 8: <ID, "a">
+Line 8: <LBRACKETS>
+Line 8: <ID, "low">
+Line 8: <RBRACKETS>
+Line 8: <SEMI>
+Line 9: <ID, "i">
+Line 9: <ASSIGN>
+Line 9: <ID, "low">
+Line 9: <PLUS>
+Line 9: <NUM, "1">
+Line 9: <SEMI>
+Line 10: <WHILE>
+Line 10: <LPAREN>
+Line 10: <ID, "i">
+Line 10: <LT>
+Line 10: <ID, "high">
+Line 10: <RPAREN>
+Line 11: <LCBRACES>
+Line 11: <IF>
+Line 11: <LPAREN>
+Line 11: <ID, "a">
+Line 11: <LBRACKETS>
+Line 11: <ID, "i">
+Line 11: <RBRACKETS>
+Line 11: <LT>
+Line 11: <ID, "x">
+Line 11: <RPAREN>
+Line 12: <LCBRACES>
+Line 12: <ID, "x">
+Line 12: <ASSIGN>
+Line 12: <ID, "a">
+Line 12: <LBRACKETS>
+Line 12: <ID, "i">
+Line 12: <RBRACKETS>
+Line 12: <SEMI>
+Line 13: <ID, "k">
+Line 13: <ASSIGN>
+Line 13: <NUM, "1">
+Line 13: <SEMI>
+Line 13: <RCBRACES>
+Line 14: <ID, "i">
+Line 14: <ASSIGN>
+Line 14: <ID, "i">
+Line 14: <PLUS>
+Line 14: <NUM, "1">
+Line 14: <SEMI>
+Line 15: <RCBRACES>
+Line 16: <RETURN>
+Line 16: <ID, "k">
+Line 16: <SEMI>
+Line 17: <RCBRACES>
+Line 19: <VOID>
+Line 19: <ID, "sort">
+Line 19: <LPAREN>
+Line 19: <INT>
+Line 19: <ID, "a">
+Line 19: <LBRACKETS>
+Line 19: <RBRACKETS>
+Line 19: <COMMA>
+Line 19: <INT>
+Line 19: <ID, "low">
+Line 19: <COMMA>
+Line 19: <INT>
+Line 19: <ID, "high">
+Line 19: <RPAREN>
+Line 20: <LCBRACES>
+Line 20: <INT>
+Line 20: <ID, "i">
+Line 20: <SEMI>
+Line 20: <INT>
+Line 20: <ID, "k">
+Line 20: <SEMI>
+Line 21: <ID, "i">
+Line 21: <ASSIGN>
+Line 21: <ID, "low">
+Line 21: <SEMI>
+Line 22: <WHILE>
+Line 22: <LPAREN>
+Line 22: <ID, "i">
+Line 22: <LT>
+Line 22: <ID, "high">
+Line 22: <MINUS>
+Line 22: <NUM, "1">
+Line 22: <RPAREN>
+Line 23: <LCBRACES>
+Line 23: <INT>
+Line 23: <ID, "t">
+Line 23: <SEMI>
+Line 24: <ID, "k">
+Line 24: <ASSIGN>
+Line 24: <ID, "minloc">
+Line 24: <LPAREN>
+Line 24: <ID, "a">
+Line 24: <COMMA>
+Line 24: <ID, "i">
+Line 24: <COMMA>
+Line 24: <ID, "high">
+Line 24: <RPAREN>
+Line 24: <SEMI>
+Line 25: <ID, "t">
+Line 25: <ASSIGN>
+Line 25: <ID, "a">
+Line 25: <LBRACKETS>
+Line 25: <ID, "k">
+Line 25: <RBRACKETS>
+Line 25: <SEMI>
+Line 26: <ID, "a">
+Line 26: <LBRACKETS>
+Line 26: <ID, "k">
+Line 26: <RBRACKETS>
+Line 26: <ASSIGN>
+Line 26: <ID, "a">
+Line 26: <LBRACKETS>
+Line 26: <ID, "i">
+Line 26: <RBRACKETS>
+Line 26: <SEMI>
+Line 27: <ID, "a">
+Line 27: <LBRACKETS>
+Line 27: <ID, "i">
+Line 27: <RBRACKETS>
+Line 27: <ASSIGN>
+Line 27: <ID, "t">
+Line 27: <SEMI>
+Line 28: <ID, "i">
+Line 28: <ASSIGN>
+Line 28: <ID, "i">
+Line 28: <PLUS>
+Line 28: <NUM, "1">
+Line 28: <SEMI>
+Line 29: <RCBRACES>
+Line 30: <RCBRACES>
+Line 32: <VOID>
+Line 32: <ID, "main">
+Line 32: <LPAREN>
+Line 32: <VOID>
+Line 32: <RPAREN>
+Line 33: <LCBRACES>
+Line 33: <INT>
+Line 33: <ID, "i">
+Line 33: <SEMI>
+Line 34: <INT>
+Line 34: <ID, "k">
+Line 34: <SEMI>
+Line 35: <ID, "i">
+Line 35: <ASSIGN>
+Line 35: <TIMES>

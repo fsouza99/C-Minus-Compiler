@@ -1,0 +1,46 @@
+Line 1: <INT>
+Line 1: <ID, "factorial">
+Line 1: <LPAREN>
+Line 1: <INT>
+Line 1: <ID, "n">
+Line 1: <RPAREN>
+Line 1: <LCBRACES>
+Line 2: <INT>
+Line 2: <ID, "buffer">
+Line 2: <SEMI>
+Line 2: <INT>
+Line 2: <ID, "aux">
+Line 2: <SEMI>
+Line 3: <ID, "buffer">
+Line 3: <ASSIGN>
+Line 3: <ID, "aux">
+Line 3: <ASSIGN>
+Line 3: <ID, "n">
+Line 3: <SEMI>
+Line 4: <WHILE>
+Line 4: <LPAREN>
+Line 4: <ID, "aux">
+Line 4: <GT>
+Line 4: <NUM, "0">
+Line 4: <RPAREN>
+Line 4: <LCBRACES>
+Line 5: <ID, "aux">
+Line 5: <ASSIGN>
+Line 5: <ID, "aux">
+Line 5: <MINUS>
+Line 5: <NUM, "1">
+Line 5: <SEMI>
+Line 6: <ID, "buffer">
+Line 6: <ASSIGN>
+Line 6: <ID, "buffer">
+Line 6: <TIMES>
+Line 6: <LPAREN>
+Line 6: <ID, "aux">
+Line 6: <RPAREN>
+Line 6: <SEMI>
+Line 7: <RCBRACES>
+Line 8: <RETURN>
+Line 8: <ID, "buffer">
+Line 8: <SEMI>
+Line 9: <RCBRACES>
+Line 9: <ENDOFFILE>

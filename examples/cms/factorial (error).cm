@@ -1,0 +1,9 @@
+int factorial(int n) {
+    int buffer; int aux;
+    buffer = aux = n;
+    while (aux > 0) {
+        aux = aux - 1;
+        buffer = buffer * (aux; /* This is an error: A right parentheses is missing. */
+    }
+    return buffer;
+}

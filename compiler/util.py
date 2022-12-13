@@ -22,9 +22,9 @@ def show_token(currentToken: TokenType, tokenString: str = '', lineno: int = Non
     print(format_token(currentToken, tokenString, lineno))
     return
 
-def IDGenerator():
+def IDGenerator(max_id=10**3):
     counter = 0
-    while counter < 10**3:
+    while counter < max_id:
         counter += 1
         yield counter
     return None

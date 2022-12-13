@@ -1,0 +1,71 @@
+Line 4: <INT>
+Line 4: <ID, "gcd">
+Line 4: <LPAREN>
+Line 4: <INT>
+Line 4: <ID, "u">
+Line 4: <COMMA>
+Line 4: <INT>
+Line 4: <ID, "v">
+Line 4: <RPAREN>
+Line 4: <LCBRACES>
+Line 5: <IF>
+Line 5: <LPAREN>
+Line 5: <ID, "v">
+Line 5: <COMP>
+Line 5: <NUM, "0">
+Line 5: <RPAREN>
+Line 6: <RETURN>
+Line 6: <ID, "u">
+Line 6: <SEMI>
+Line 7: <ELSE>
+Line 8: <RETURN>
+Line 8: <ID, "gcd">
+Line 8: <LPAREN>
+Line 8: <ID, "v">
+Line 8: <COMMA>
+Line 8: <ID, "u">
+Line 8: <MINUS>
+Line 8: <ID, "u">
+Line 8: <OVER>
+Line 8: <ID, "v">
+Line 8: <TIMES>
+Line 8: <ID, "v">
+Line 8: <RPAREN>
+Line 8: <SEMI>
+Line 10: <RCBRACES>
+Line 12: <VOID>
+Line 12: <ID, "main">
+Line 12: <LPAREN>
+Line 12: <VOID>
+Line 12: <RPAREN>
+Line 12: <LCBRACES>
+Line 13: <INT>
+Line 13: <ID, "x">
+Line 13: <SEMI>
+Line 13: <INT>
+Line 13: <ID, "y">
+Line 13: <SEMI>
+Line 14: <ID, "x">
+Line 14: <ASSIGN>
+Line 14: <ID, "input">
+Line 14: <LPAREN>
+Line 14: <RPAREN>
+Line 14: <SEMI>
+Line 15: <ID, "y">
+Line 15: <ASSIGN>
+Line 15: <ID, "input">
+Line 15: <LPAREN>
+Line 15: <RPAREN>
+Line 15: <SEMI>
+Line 16: <ID, "output">
+Line 16: <LPAREN>
+Line 16: <ID, "gcd">
+Line 16: <LPAREN>
+Line 16: <ID, "x">
+Line 16: <COMMA>
+Line 16: <ID, "y">
+Line 16: <RPAREN>
+Line 16: <RPAREN>
+Line 16: <SEMI>
+Line 17: <RCBRACES>
+Line 18: <ENDOFFILE>

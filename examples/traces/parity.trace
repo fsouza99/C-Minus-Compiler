@@ -1,0 +1,58 @@
+Line 1: <INT>
+Line 1: <ID, "parity">
+Line 1: <LPAREN>
+Line 1: <INT>
+Line 1: <ID, "n">
+Line 1: <RPAREN>
+Line 1: <LCBRACES>
+Line 2: <INT>
+Line 2: <ID, "aux">
+Line 2: <SEMI>
+Line 3: <ID, "aux">
+Line 3: <ASSIGN>
+Line 3: <ID, "n">
+Line 3: <OVER>
+Line 3: <NUM, "2">
+Line 3: <TIMES>
+Line 3: <NUM, "2">
+Line 3: <SEMI>
+Line 4: <IF>
+Line 4: <LPAREN>
+Line 4: <ID, "aux">
+Line 4: <DIFF>
+Line 4: <ID, "n">
+Line 4: <RPAREN>
+Line 4: <LCBRACES>
+Line 5: <RETURN>
+Line 5: <NUM, "0">
+Line 5: <SEMI>
+Line 6: <RCBRACES>
+Line 6: <ELSE>
+Line 6: <RETURN>
+Line 6: <NUM, "1">
+Line 6: <SEMI>
+Line 7: <RCBRACES>
+Line 9: <VOID>
+Line 9: <ID, "main">
+Line 9: <LPAREN>
+Line 9: <RPAREN>
+Line 9: <LCBRACES>
+Line 10: <INT>
+Line 10: <ID, "n">
+Line 10: <SEMI>
+Line 11: <ID, "n">
+Line 11: <ASSIGN>
+Line 11: <ID, "input">
+Line 11: <LPAREN>
+Line 11: <RPAREN>
+Line 11: <SEMI>
+Line 12: <ID, "output">
+Line 12: <LPAREN>
+Line 12: <ID, "parity">
+Line 12: <LPAREN>
+Line 12: <ID, "n">
+Line 12: <RPAREN>
+Line 12: <RPAREN>
+Line 12: <SEMI>
+Line 13: <RCBRACES>
+Line 13: <ENDOFFILE>
